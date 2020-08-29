@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: customer-postgres-pv
+  labels:
+    type: local
+    app: customer-postgres
+spec:
+  storageClassName: customer-postgres-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/morphcloud/customer-postgres/data"
+    type: DirectoryOrCreate
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: customer-postgres-pvc
+  labels:
+    app: customer-postgres
+spec:
+  storageClassName: customer-postgres-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

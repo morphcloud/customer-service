@@ -13,7 +13,7 @@ type PSQLCreds struct {
 
 // NewPSQLClient
 func NewPSQLClient(creds PSQLCreds) (*sql.DB, error) {
-	connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=verify-full", creds.Host, creds.Port, creds.User, creds.Pass, creds.DB)
+	connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=verify-full", creds.User, creds.Pass, creds.Host, creds.Port, creds.DB)
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {

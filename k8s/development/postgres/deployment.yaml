@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-postgres
+spec:
+  selector:
+    matchLabels:
+      app: customer-postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: customer-postgres
+    spec:
+      containers:
+        - name: customer-postgres
+          image: postgres:13-alpine
+          envFrom:
+            - configMapRef:
+                name: customer-postgres-config
+          volumeMounts:
+            - name: customer-postgres-persistent-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: customer-postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: customer-postgres-pvc
