@@ -51,6 +51,9 @@ func waitForShutdown(srv http.Server, l *log.Logger) {
 }
 
 func Execute() {
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
 	configureEnv()
 
 	l := log.New(os.Stdout, appName+" ", log.LstdFlags)
@@ -62,14 +65,14 @@ func Execute() {
 		Pass: os.Getenv("POSTGRES_PASS"),
 		DB:   os.Getenv("POSTGRES_DB"),
 	}
-	psqlClient, err := database.NewPSQLClient(psqlCreds)
+	psqlConn, err := database.NewPSQLConn(ctx, psqlCreds)
 	if err != nil {
 		l.Fatalf("%s\n", err.Error())
 	}
 	l.Printf("PostgreSQL service is running on %s:%s\n", psqlCreds.Host, psqlCreds.Port)
 
 	router := mux.NewRouter()
-	routes.MapURLPathsToHandlers(router, psqlClient, l)
+	routes.MapURLPathsToHandlers(router, psqlConn, l)
 
 	srv := http.Server{
 		Addr:         lisAddr,

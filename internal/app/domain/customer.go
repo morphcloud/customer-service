@@ -4,11 +4,12 @@ import "time"
 
 type Customer struct {
 	ID         string    `json:"id"`
-	FirstName  string    `json:"firstName,omitempty"`
-	MiddleName string    `json:"middleName,omitempty"`
-	LastName   string    `json:"lastName"`
+	FirstName  string    `json:"first_name"`
+	MiddleName string    `json:"middle_name,omitempty"`
+	LastName   string    `json:"last_name"`
 	Email      string    `json:"email"`
-	StatusID   int32     `json:"statusId"`
-	CreatedAt  time.Time `json:"createdAt"`
-	UpdatedAt  time.Time `json:"updatedAt"`
+	Password   string    `json:"-"`
+	StatusID   int32     `json:"status_id"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }

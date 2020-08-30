@@ -38,21 +38,21 @@ func easyjsonC5d9ea64DecodeGithubComMorphcloudCustomerServiceInternalAppDomain(i
 		switch key {
 		case "id":
 			out.ID = string(in.String())
-		case "firstName":
+		case "first_name":
 			out.FirstName = string(in.String())
-		case "middleName":
+		case "middle_name":
 			out.MiddleName = string(in.String())
-		case "lastName":
+		case "last_name":
 			out.LastName = string(in.String())
 		case "email":
 			out.Email = string(in.String())
-		case "statusId":
+		case "status_id":
 			out.StatusID = int32(in.Int32())
-		case "createdAt":
+		case "created_at":
 			if data := in.Raw(); in.Ok() {
 				in.AddError((out.CreatedAt).UnmarshalJSON(data))
 			}
-		case "updatedAt":
+		case "updated_at":
 			if data := in.Raw(); in.Ok() {
 				in.AddError((out.UpdatedAt).UnmarshalJSON(data))
 			}
@@ -75,18 +75,18 @@ func easyjsonC5d9ea64EncodeGithubComMorphcloudCustomerServiceInternalAppDomain(o
 		out.RawString(prefix[1:])
 		out.String(string(in.ID))
 	}
-	if in.FirstName != "" {
-		const prefix string = ",\"firstName\":"
+	{
+		const prefix string = ",\"first_name\":"
 		out.RawString(prefix)
 		out.String(string(in.FirstName))
 	}
 	if in.MiddleName != "" {
-		const prefix string = ",\"middleName\":"
+		const prefix string = ",\"middle_name\":"
 		out.RawString(prefix)
 		out.String(string(in.MiddleName))
 	}
 	{
-		const prefix string = ",\"lastName\":"
+		const prefix string = ",\"last_name\":"
 		out.RawString(prefix)
 		out.String(string(in.LastName))
 	}
@@ -96,17 +96,17 @@ func easyjsonC5d9ea64EncodeGithubComMorphcloudCustomerServiceInternalAppDomain(o
 		out.String(string(in.Email))
 	}
 	{
-		const prefix string = ",\"statusId\":"
+		const prefix string = ",\"status_id\":"
 		out.RawString(prefix)
 		out.Int32(int32(in.StatusID))
 	}
 	{
-		const prefix string = ",\"createdAt\":"
+		const prefix string = ",\"created_at\":"
 		out.RawString(prefix)
 		out.Raw((in.CreatedAt).MarshalJSON())
 	}
 	{
-		const prefix string = ",\"updatedAt\":"
+		const prefix string = ",\"updated_at\":"
 		out.RawString(prefix)
 		out.Raw((in.UpdatedAt).MarshalJSON())
 	}

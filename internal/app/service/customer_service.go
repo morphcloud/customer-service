@@ -1,10 +1,10 @@
-package services
+package service
 
 import (
 	"context"
 
 	"github.com/morphcloud/customer-service/internal/app/domain"
-	"github.com/morphcloud/customer-service/internal/app/repositories"
+	"github.com/morphcloud/customer-service/internal/app/repository"
 )
 
 // CustomerService
@@ -13,11 +13,11 @@ type CustomerService interface {
 }
 
 type customerService struct {
-	repository repositories.CustomerRepository
+	repository repository.CustomerRepository
 }
 
 // NewCustomerService
-func NewCustomerService(repository repositories.CustomerRepository) CustomerService {
+func NewCustomerService(repository repository.CustomerRepository) CustomerService {
 	return &customerService{
 		repository,
 	}

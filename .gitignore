@@ -1,4 +1,5 @@
 .env
+skaffold.yaml
 
 .idea/
 bin/

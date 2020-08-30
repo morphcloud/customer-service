@@ -1,24 +1,28 @@
 package database
 
 import (
-	"database/sql"
+	"context"
 	"fmt"
 
-	_ "github.com/lib/pq"
+	"github.com/jackc/pgx/v4"
 )
 
 type PSQLCreds struct {
 	Host, Port, User, Pass, DB string
 }
 
-// NewPSQLClient
-func NewPSQLClient(creds PSQLCreds) (*sql.DB, error) {
+// NewPSQLConn
+func NewPSQLConn(ctx context.Context, creds PSQLCreds) (*pgx.Conn, error) {
 	connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=verify-full", creds.User, creds.Pass, creds.Host, creds.Port, creds.DB)
 
-	db, err := sql.Open("postgres", connStr)
+	conn, err := pgx.Connect(ctx, connStr)
 	if err != nil {
 		return nil, err
 	}
 
-	return db, nil
+	if err = conn.Ping(ctx); err != nil {
+		return nil, err
+	}
+
+	return conn, nil
 }
